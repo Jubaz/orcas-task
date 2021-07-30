@@ -4,15 +4,17 @@
 - cd orcas-task
 - composer install
 - cp .env.example .env
-- configure your database in .env
+- Configure your database in .env
 - php artisan migrate
 - php artisan db:seed --class=GenerateTestingApiKeys 
 - php artisan key:generate
 - php artisan serve
 - php artisan sync:users
-- visit http://localhost:8000/api/v1/usres or http://localhost:8000/api/v1/uesrs/search?keyword=word in postman.
+- Visit http://localhost:8000/api/v1/usres or http://localhost:8000/api/v1/uesrs/search?keyword=word in postman.
 
-Note: don't forget to add X-Authorization => 'LPO67QIcaluOQVfUVjMBbF7HAm7EGTqgmou5yT3k50BEEfXpJbjW9FpWjJl2DRiI' header
+### Notes :
++ Don't forget to add Accept and Content-Type headers.
+- Don't forget to add X-Authorization = 'LPO67QIcaluOQVfUVjMBbF7HAm7EGTqgmou5yT3k50BEEfXpJbjW9FpWjJl2DRiI' header.
 
 ## Tests    
 
