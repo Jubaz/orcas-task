@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(
-    ['prefix' => 'v1'],
+    ['prefix' => 'v1', 'middleware' => ['auth.apikey']],
     function () {
         Route::get('/users', [UserController::class, 'index']);
     }
