@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Constants\Pagination;
 use App\Repositories\UserRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class UserServices
@@ -15,7 +16,12 @@ class UserServices
         $this->userRepository = $userRepository;
     }
 
-    public function getUsersPaginated()
+    public function getUsersByKeyword(string $keyword): Collection
+    {
+        return $this->userRepository->getUsersByKeyword($keyword);
+    }
+
+    public function getUsersPaginated(): LengthAwarePaginator
     {
         return $this->userRepository->paginate(Pagination::DEFAULT_PER_PAGE);
     }

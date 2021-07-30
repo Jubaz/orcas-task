@@ -18,5 +18,6 @@ Route::group(
     ['prefix' => 'v1', 'middleware' => ['auth.apikey']],
     function () {
         Route::get('/users', [UserController::class, 'index']);
+        Route::get('/users/search', [UserController::class, 'search']);
     }
 );

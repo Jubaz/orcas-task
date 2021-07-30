@@ -37,6 +37,48 @@ class UserServiceTest extends TestCase
     /**
      * @test
      */
+    public function it_can_search_in_users_by_first_name()
+    {
+        User::factory()->create(['first_name' => 'First Name']);
+        User::factory()->count(3)->create();
+
+        $users = $this->userService->getUsersByKeyword('First Name');
+
+        $this->assertCount(1, $users);
+        $this->assertTrue($users->contains('first_name', 'First Name'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_search_in_users_by_last_name()
+    {
+        User::factory()->create(['last_name' => 'Last Name']);
+        User::factory()->count(3)->create();
+
+        $users = $this->userService->getUsersByKeyword('Last Name');
+
+        $this->assertCount(1, $users);
+        $this->assertTrue($users->contains('last_name', 'Last Name'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_search_in_users_by_email()
+    {
+        User::factory()->create(['email' => 'Email@Email.com']);
+        User::factory()->count(3)->create();
+
+        $users = $this->userService->getUsersByKeyword('Email@Email.com');
+
+        $this->assertCount(1, $users);
+        $this->assertTrue($users->contains('email', 'Email@Email.com'));
+    }
+
+    /**
+     * @test
+     */
     public function it_can_store_bulk_users()
     {
         $data = [
