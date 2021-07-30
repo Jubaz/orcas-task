@@ -2,31 +2,48 @@
 
 namespace App\Services;
 
-use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class UserServices
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
 
     public function storeBulk(array $users): bool
     {
-        return DB::table('users')->insert($users);
+        return $this->userRepository->insert($users);
     }
 
-    public function readyToBeInserted(Collection $users): Collection
+    public function getReadyToBeInserted(Collection $users): Collection
     {
-        $duplicatedEmails = User::select('email')->whereIn('email', $users->pluck('email'))->get()->pluck(
-            'email'
-        )->toArray();
+        $duplicatesUsers = $this->userRepository->getUsersByEmails($users->pluck('email')->toArray());
+
+        $duplicatesEmails = $duplicatesUsers->pluck('email')->toArray();
 
         return $users->reject(
-            function ($item) use ($duplicatedEmails) {
-                if (!$item['first_name'] || !$item['last_name'] || !$item['avatar'] || !$item['email']) {
+            function ($item) use ($duplicatesEmails) {
+                if (empty($item['first_name'])) {
                     return true;
                 }
 
-                if (in_array($item['email'], $duplicatedEmails)) {
+                if (empty($item['last_name'])) {
+                    return true;
+                }
+
+                if (empty($item['avatar'])) {
+                    return true;
+                }
+
+                if (empty($item['email'])) {
+                    return true;
+                }
+
+                if (in_array($item['email'], $duplicatesEmails)) {
                     return true;
                 }
 
