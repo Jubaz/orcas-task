@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\Pagination;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Collection;
 
@@ -12,6 +13,11 @@ class UserServices
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+    }
+
+    public function getUsersPaginated()
+    {
+        return $this->userRepository->paginate(Pagination::DEFAULT_PER_PAGE);
     }
 
     public function storeBulk(array $users): bool
