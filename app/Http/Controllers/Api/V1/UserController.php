@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\ApiBaseController;
+use App\Http\Requests\SearchRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserServices;
-use Illuminate\Http\Request;
 
 class UserController extends ApiBaseController
 {
@@ -21,7 +21,7 @@ class UserController extends ApiBaseController
         return UserResource::collection($this->userServices->getUsersPaginated());
     }
 
-    public function search(Request $request)
+    public function search(SearchRequest $request)
     {
         return UserResource::collection($this->userServices->getUsersByKeyword($request->get('keyword')));
     }
