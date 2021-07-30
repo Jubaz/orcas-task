@@ -13,7 +13,7 @@
 - Visit http://localhost:8000/api/v1/usres or http://localhost:8000/api/v1/uesrs/search?keyword=word in postman.
 
 ### Notes :
-+ Don't forget to add Accept and Content-Type headers.
+- Don't forget to add Accept and Content-Type headers.
 - Don't forget to add X-Authorization = 'LPO67QIcaluOQVfUVjMBbF7HAm7EGTqgmou5yT3k50BEEfXpJbjW9FpWjJl2DRiI' header.
 
 ## Tests    
