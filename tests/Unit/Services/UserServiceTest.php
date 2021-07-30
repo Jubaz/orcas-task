@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\Constants\Pagination;
 use App\Models\User;
 use App\Services\UserServices;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,6 +19,19 @@ class UserServiceTest extends TestCase
         parent::setUp();
 
         $this->userService = app()->make(UserServices::class);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_get_users_paginated()
+    {
+        User::factory()->count(15)->create();
+
+        $users = $this->userService->getUsersPaginated();
+
+        $this->assertDatabaseCount('users', 15);
+        $this->assertCount(Pagination::DEFAULT_PER_PAGE, $users);
     }
 
     /**
