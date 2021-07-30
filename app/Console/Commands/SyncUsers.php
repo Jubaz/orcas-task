@@ -51,6 +51,7 @@ class SyncUsers extends Command
                 $this->syncThirdParty($thirdParty['url'], $thirdParty['fields_mapping']);
             } catch (Throwable $exception) {
                 Log::channel('console')->error($exception);
+                $this->error($exception);
             }
         }
 
@@ -73,10 +74,12 @@ class SyncUsers extends Command
             $usersReadyToBeSynced->push($this->reformatToSupportedArray($item, $fieldsMapMapping));
         }
 
-        $readyToBeInserted = $this->userServices->readyToBeInserted($usersReadyToBeSynced);
+        $readyToBeInserted = $this->userServices->getReadyToBeInserted($usersReadyToBeSynced);
         $this->userServices->storeBulk($readyToBeInserted->toArray());
 
-        $this->info($url . ' Synced successfully');
+        $message = $url . ' Synced successfully';
+        $this->info($message);
+        Log::channel('console')->info($message);
     }
 
     private function reformatToSupportedArray(array $array, array $fieldsMapping): array
