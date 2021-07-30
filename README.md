@@ -21,14 +21,14 @@
 You can run php artisan test
 
 ## Tests List :
-✓ it can get users paginated
-✓ it can search in users by first name
-✓ it can search in users by last name
-✓ it can search in users by email
-✓ it can store bulk users
-✓ it can get valid users
-✓ it can reject user with empty first name
-✓ it can reject user with empty last name
-✓ it can reject user with empty email or email already in database
-✓ it can reject user with empty avatar
+- it can get users paginated
+- it can search in users by first name
+- it can search in users by last name
+- it can search in users by email
+- it can store bulk users
+- it can get valid users
+- it can reject user with empty first name
+- it can reject user with empty last name
+- it can reject user with empty email or email already in database
+- it can reject user with empty avatar
 
